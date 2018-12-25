@@ -7,7 +7,8 @@ gap2 = 0.002;
 th = 2;
 fx = 141+th*2;
 fy = 141+th*2;
-fd = 24.5;
+fd = 24.5-5;
+fd2 = 5;
 cx = 124;
 cy = 130;
 cd = 25;
@@ -17,9 +18,9 @@ cr = 0.7;
 A = 0;
 B = 0;
 C = 0;
-D = 0;
-E = 0;
-F = 1;
+D = 1;
+E = 1;
+
 
 if(A)
 {
@@ -41,7 +42,7 @@ if(D)
     {
         translate ( [-fx/2, -fd, 0] ) cube( [fx, fd, fy] );
         translate ( [-fx/2+th, -fd-gap1, th] ) cube( [fx-th*2, fd+gap2, fy-th*2] );
-        translate ( [161/2, -fd-3, +22] ) cube( [50, 20, 5], center=true );
+        //translate ( [161/2, -fd-3, +22] ) cube( [50, 20, 5], center=true );
     }
     difference()
     {
@@ -85,15 +86,22 @@ if(E)
 {
     difference()
     {
-        translate ( [-fx/2, -fd-th, 0] ) cube( [fx, th, fy] );
-        translate ( [0, -fd+th+gap1, fy/2] ) rotate( [90, 0, 0] ) cylinder( th*2+gap2, 120/2, 120/2, $fn=100 );
+        translate ( [-fx/2, -fd-fd2-th, 0] ) cube( [fx, th, fy] );
+        translate ( [0, -fd-fd2+th+gap1, fy/2] ) rotate( [90, 0, 0] ) cylinder( th*2+gap2, 120/2, 120/2, $fn=100 );
+    }
+    translate ( [-3/2, -fd-fd2-th, fx/2] ) cube( [3, th, fx/2] );
+    translate ( [-3/2, -fd-fd2-th, fx/2] ) rotate( [0, 120, 0] ) cube( [3, th, fx/2] );
+    translate ( [-3/2, -fd-fd2-th, fx/2] ) rotate( [0, 240, 0] ) cube( [3, th, fx/2] );
+    translate ( [0, -fd-fd2, fy/2] ) rotate( [90, 0, 0] ) cylinder( th, 55/2, 55/2, $fn=100 );
+    
+    difference()
+    {
+        translate ( [-fx/2, -fd-fd2, 0] ) cube( [fx, fd2, fy] );
+        translate ( [-fx/2+th, -fd-fd2-gap1, th] ) cube( [fx-th*2, fd+gap2, fy-th*2] );
+        translate ( [161/2, -fd-fd2-3, +22] ) cube( [50, 20, 5], center=true );
     }
 }
 
-if(F)
-{
-    translate ( [0, -fd, fy/2] ) rotate( [90, 0, 0] ) cylinder( th, 55/2, 55/2, $fn=100 );
-}
 
 module fan( y=0 )
 {
